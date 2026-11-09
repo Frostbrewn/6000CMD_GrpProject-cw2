@@ -66,7 +66,7 @@ The implementation will be evaluated through manual and automated security testi
 
 ## 4. Technology Stack
 
-The following is the proposed development baseline, subject to final confirmation by both team members.
+The following technology stack has been agreed upon by both team members and will be used for the application development.
 
 | Component | Technology |
 |---|---|
