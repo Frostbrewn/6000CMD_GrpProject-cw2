@@ -1,0 +1,41 @@
+/* app.css — small additions on top of Bootstrap 5.3.
+   No inline styles are used anywhere, so the CSP can use style-src 'self'. */
+
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; background: #f6f7f9; }
+main { flex: 1 0 auto; }
+#app-footer { border-top: 1px solid #e3e5e8; background: #fff; }
+
+.page-title { font-size: 1.6rem; font-weight: 600; }
+
+/* Listing cards */
+.listing-card { transition: box-shadow .15s ease; }
+.listing-card:hover { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .08); }
+.listing-card .card-title a { text-decoration: none; color: inherit; }
+.listing-card .card-title a::after { content: ""; position: absolute; inset: 0; } /* whole card clickable */
+.listing-desc { white-space: pre-line; overflow-wrap: anywhere; }
+
+/* Password meter */
+.pw-meter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; height: 6px; }
+.pw-meter span { background: #dee2e6; border-radius: 3px; }
+.pw-meter[data-score="1"] span:nth-child(-n+1) { background: #dc3545; }
+.pw-meter[data-score="2"] span:nth-child(-n+2) { background: #fd7e14; }
+.pw-meter[data-score="3"] span:nth-child(-n+3) { background: #20c997; }
+.pw-meter[data-score="4"] span:nth-child(-n+4) { background: #198754; }
+.pw-rules li { list-style: none; }
+.pw-rules li::before { content: "○ "; }
+.pw-rules li.ok { color: #198754; }
+.pw-rules li.ok::before { content: "✓ "; }
+
+/* Search bar: inline on wider screens */
+@media (min-width: 768px) {
+  #search-form .form-control { width: 16rem; }
+  #search-form .form-select { width: auto; }
+}
+
+/* Admin dashboard */
+.stat-tile .stat-value { font-size: 1.75rem; font-weight: 600; line-height: 1.1; }
+.stat-tile .stat-label { font-size: .8rem; color: #6c757d; text-transform: uppercase; letter-spacing: .03em; }
+
+.table td, .table th { vertical-align: middle; }
+.text-prewrap { white-space: pre-wrap; }

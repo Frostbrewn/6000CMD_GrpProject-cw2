@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Browse listings · SecureMarket</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <a class="visually-hidden-focusable p-2" href="#main">Skip to content</a>
+  <header id="app-nav"></header>
+  <main class="container py-4" id="main">
+    <div id="page-content" hidden>
+      <div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4">
+        <div>
+          <h1 class="page-title mb-1">Browse listings</h1>
+          <p class="text-body-secondary mb-0">Items advertised by SecureMarket members.</p>
+        </div>
+        <form id="search-form" class="d-flex flex-wrap gap-2" method="get" action="/index.html" role="search">
+          <label class="visually-hidden" for="q">Keyword</label>
+          <input class="form-control" id="q" name="q" type="search" placeholder="Search listings" maxlength="100" autocomplete="off">
+          <label class="visually-hidden" for="category">Category</label>
+          <select class="form-select" id="category" name="category"><option value="">All categories</option></select>
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+      </div>
+      <div id="alert" aria-live="polite"></div>
+      <p id="result-summary" class="small text-body-secondary"></p>
+      <div id="results" class="row g-3" aria-live="polite"></div>
+      <div id="pagination" class="mt-4"></div>
+    </div>
+  </main>
+  <footer id="app-footer"></footer>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="/js/pages/index.js"></script>
+</body>
+</html>

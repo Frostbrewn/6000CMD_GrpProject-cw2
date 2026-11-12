@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Register · SecureMarket</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <a class="visually-hidden-focusable p-2" href="#main">Skip to content</a>
+  <header id="app-nav"></header>
+  <main class="container py-4" id="main">
+    <div id="page-content" hidden>
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow-sm">
+            <div class="card-body p-4">
+              <h1 class="page-title mb-1">Create an account</h1>
+              <p class="text-body-secondary">A member account lets you advertise and manage your own listings.</p>
+              <div id="alert" aria-live="polite"></div>
+              <form id="register-form" novalidate>
+                <div class="mb-3 field">
+                  <label class="form-label" for="name">Full name</label>
+                  <input class="form-control" id="name" name="name" type="text" autocomplete="name" maxlength="80" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3 field">
+                  <label class="form-label" for="email">Email</label>
+                  <input class="form-control" id="email" name="email" type="email" autocomplete="email" maxlength="254" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3 field">
+                  <label class="form-label" for="password">Password</label>
+                  <input class="form-control" id="password" name="password" type="password" autocomplete="new-password" maxlength="128" required aria-describedby="pw-help">
+                  <div class="invalid-feedback"></div>
+                  <div class="pw-meter mt-2" id="pw-meter" data-score="0" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+                  <div class="small mt-1" id="pw-label" aria-live="polite">Strength: —</div>
+                  <ul class="pw-rules small ps-0 mt-2 mb-0" id="pw-help">
+                    <li data-rule="length">At least 12 characters (a passphrase of 3–4 random words works well)</li>
+                    <li data-rule="common">Not a commonly used password</li>
+                    <li data-rule="personal">Does not contain your email name</li>
+                  </ul>
+                </div>
+                <div class="mb-3 field">
+                  <label class="form-label" for="confirmPassword">Confirm password</label>
+                  <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" maxlength="128" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3 field form-check">
+                  <input class="form-check-input" id="consent" name="consent" type="checkbox" required>
+                  <label class="form-check-label" for="consent">I have read the <a href="/privacy.html" target="_blank" rel="noopener">privacy notice</a>.</label>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <button class="btn btn-primary w-100" type="submit">Create account</button>
+              </form>
+              <hr>
+              <p class="small mb-0">Already registered? <a href="/login.html">Log in</a>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer id="app-footer"></footer>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="/js/pages/register.js"></script>
+</body>
+</html>
