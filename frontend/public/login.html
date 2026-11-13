@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Log in · SecureMarket</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <a class="visually-hidden-focusable p-2" href="#main">Skip to content</a>
+  <header id="app-nav"></header>
+  <main class="container py-4" id="main">
+    <div id="page-content" hidden>
+      <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-5">
+          <div class="card shadow-sm">
+            <div class="card-body p-4">
+              <h1 class="page-title mb-3">Log in</h1>
+              <div id="alert" aria-live="polite"></div>
+              <form id="login-form" novalidate>
+                <div class="mb-3 field">
+                  <label class="form-label" for="email">Email</label>
+                  <input class="form-control" id="email" name="email" type="email" autocomplete="username" maxlength="254" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3 field">
+                  <label class="form-label" for="password">Password</label>
+                  <input class="form-control" id="password" name="password" type="password" autocomplete="current-password" maxlength="128" required>
+                  <div class="invalid-feedback"></div>
+                </div>
+                <button class="btn btn-primary w-100" type="submit">Log in</button>
+              </form>
+              <hr>
+              <p class="small mb-0">No account? <a href="/register.html">Register</a>.
+                Only enter your password when the address bar shows a valid HTTPS padlock.
+                <a href="/security-tips.html">Security tips</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer id="app-footer"></footer>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="/js/pages/login.js"></script>
+</body>
+</html>

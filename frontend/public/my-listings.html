@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>My listings · SecureMarket</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <a class="visually-hidden-focusable p-2" href="#main">Skip to content</a>
+  <header id="app-nav"></header>
+  <main class="container py-4" id="main">
+    <div id="page-content" hidden>
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <div>
+          <h1 class="page-title mb-0">My listings</h1>
+          <p class="text-body-secondary small mb-0" id="welcome"></p>
+        </div>
+        <button class="btn btn-primary" id="new-listing" type="button">New listing</button>
+      </div>
+      <div id="alert" aria-live="polite"></div>
+      <div class="card"><div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light"><tr><th scope="col">Title</th><th scope="col">Category</th><th scope="col" class="text-end">Price</th><th scope="col">Status</th><th scope="col">Last updated</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div></div>
+      <div id="pagination" class="mt-3"></div>
+      <p class="small text-body-secondary mt-3">Removed listings are hidden from the public. Ask an administrator if a listing needs to be restored.</p>
+
+      <div class="modal fade" id="listing-modal" tabindex="-1" aria-labelledby="listing-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+          <form class="modal-content" id="listing-form" novalidate>
+            <div class="modal-header">
+              <h2 class="modal-title h5" id="listing-modal-title">New listing</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div id="form-alert" aria-live="polite"></div>
+              <div class="mb-3 field">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" id="title" name="title" type="text" maxlength="80" required>
+                <div class="invalid-feedback"></div>
+                <div class="form-text">Up to 80 characters.</div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3 field">
+                    <label class="form-label" for="l-category">Category</label>
+                    <select class="form-select" id="l-category" name="category" required><option value="">Select…</option></select>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3 field">
+                    <label class="form-label" for="price">Price (RM)</label>
+                    <input class="form-control" id="price" name="price" type="text" inputmode="decimal" maxlength="10" required>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 field">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="6" maxlength="1000" required></textarea>
+                <div class="invalid-feedback"></div>
+                <div class="form-text"><span id="desc-count">0</span>/1000 characters. Plain text only. Do not include your phone number, address or bank details.</div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary" id="listing-submit">Save listing</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer id="app-footer"></footer>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="/js/pages/my-listings.js"></script>
+</body>
+</html>
