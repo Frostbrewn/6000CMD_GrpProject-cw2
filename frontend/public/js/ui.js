@@ -250,7 +250,7 @@ export function renderFooter() {
   if (!host) return;
   host.replaceChildren(
     el('div', { class: 'container py-4 small text-body-secondary d-flex flex-wrap gap-3 justify-content-between' }, [
-      el('span', { text: `${APP_NAME} — coursework demonstration system. No real payments are processed.` }),
+      el('span', { text: `${APP_NAME} is our coursework project. No real payments are processed.` }),
       el('span', { class: 'd-flex gap-3' }, [
         el('a', { href: '/privacy.html', text: 'Privacy notice' }),
         el('a', { href: '/security-tips.html', text: 'Security tips' }),

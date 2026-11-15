@@ -1,23 +1,21 @@
-// validation.js — client-side validation (API_CONTRACT.md §5.1, §6.1).
-//
-// Instant feedback for users only. The backend re-validates everything and is
-// the authority. Keep these values identical to the backend's.
+// Client-side validation for registration and listing forms.
+// The server repeats these checks and remains authoritative.
 
 export const LIMITS = {
-  nameMax: 80,           // TODO(team): not set by the contract yet
+  nameMax: 80,
   emailMax: 254,
-  passwordMin: 12,       // TODO(team): agree the password policy with Developer A
-  passwordMax: 128,
-  titleMax: 80,          // contract §6.1
-  descriptionMax: 1000,  // contract §6.1
-  priceMax: 1000000,     // contract only requires finite and non-negative; proposed upper bound
+  passwordMin: 12,
+  passwordMaxBytes: 72,
+  titleMax: 80,          // contract 6.1
+  descriptionMax: 1000,  // contract 6.1
+  priceMax: 1000000,     // Enforce the same limit on the server.
   searchMax: 100,
 };
 
-// Contract §6.1 "Initial accepted categories".
+// Contract 6.1 "Initial accepted categories".
 export const CATEGORIES = ['Electronics', 'Fashion', 'Home', 'Books', 'Other'];
 
-// A small sample for instant feedback. The server should check a larger list.
+// Small client-side denylist. Apply a larger check on the server.
 const COMMON_PASSWORDS = new Set([
   'password', 'password1', 'password123', '123456789012', 'qwertyuiop', 'qwerty123456',
   'iloveyou1234', 'administrator', 'welcome12345', 'letmein12345', 'abc123456789',
@@ -41,12 +39,14 @@ export function validateName(name) {
   return null;
 }
 
-/** Unmet password rules: 'length' | 'max' | 'common' | 'personal'. */
+/** Unmet password rules: 'length' | 'bytes' | 'common' | 'personal'. */
 export function passwordProblems(password, { email = '' } = {}) {
   const problems = [];
   if (password.length < LIMITS.passwordMin) problems.push('length');
-  if (password.length > LIMITS.passwordMax) problems.push('max');
   if (COMMON_PASSWORDS.has(password.toLowerCase())) problems.push('common');
+  if (new TextEncoder().encode(password).length > LIMITS.passwordMaxBytes) {
+    problems.push('bytes');
+  }
   const local = email.split('@')[0].toLowerCase();
   if (local.length >= 3 && password.toLowerCase().includes(local)) problems.push('personal');
   return problems;
@@ -55,16 +55,22 @@ export function passwordProblems(password, { email = '' } = {}) {
 export function validatePassword(password, ctx) {
   if (!password) return 'Password is required.';
   const p = passwordProblems(password, ctx);
-  if (p.includes('max')) return `Password must be at most ${LIMITS.passwordMax} characters.`;
+  if (p.includes('bytes')) return `Password must not exceed ${LIMITS.passwordMaxBytes} UTF-8 bytes.`;
   if (p.includes('length')) return `Use at least ${LIMITS.passwordMin} characters.`;
   if (p.includes('common')) return 'This password is too common. Choose something less predictable.';
   if (p.includes('personal')) return 'Do not include your email name in your password.';
   return null;
 }
 
-/** Rough 0–4 strength for the meter. Length counts most (NIST SP 800-63B favours long passphrases). */
+// Heuristic score used by the registration password meter.
 export function passwordStrength(password) {
-  if (!password || COMMON_PASSWORDS.has(password.toLowerCase())) return 0;
+  if (
+    !password ||
+    COMMON_PASSWORDS.has(password.toLowerCase()) ||
+    new TextEncoder().encode(password).length > LIMITS.passwordMaxBytes
+  ) {
+    return 0;
+  }
   let score = 0;
   if (password.length >= 12) score++;
   if (password.length >= 16) score++;

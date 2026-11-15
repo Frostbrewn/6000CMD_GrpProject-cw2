@@ -33,11 +33,12 @@
                 </div>
                 <div class="mb-3 field">
                   <label class="form-label" for="password">Password</label>
-                  <input class="form-control" id="password" name="password" type="password" autocomplete="new-password" maxlength="128" required aria-describedby="pw-help">
+                  <input class="form-control" id="password" name="password" type="password" autocomplete="new-password" maxlength="72" required aria-describedby="pw-help">
                   <div class="invalid-feedback"></div>
                   <div class="pw-meter mt-2" id="pw-meter" data-score="0" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-                  <div class="small mt-1" id="pw-label" aria-live="polite">Strength: —</div>
+                  <div class="small mt-1" id="pw-label" aria-live="polite">Strength: Not rated</div>
                   <ul class="pw-rules small ps-0 mt-2 mb-0" id="pw-help">
+                    <li data-rule="bytes">No more than 72 UTF-8 bytes</li>
                     <li data-rule="length">At least 12 characters (a passphrase of 3–4 random words works well)</li>
                     <li data-rule="common">Not a commonly used password</li>
                     <li data-rule="personal">Does not contain your email name</li>
@@ -45,7 +46,7 @@
                 </div>
                 <div class="mb-3 field">
                   <label class="form-label" for="confirmPassword">Confirm password</label>
-                  <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" maxlength="128" required>
+                  <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" maxlength="72" required>
                   <div class="invalid-feedback"></div>
                 </div>
                 <div class="mb-3 field form-check">
