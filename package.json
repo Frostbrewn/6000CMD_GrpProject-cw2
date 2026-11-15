@@ -1,0 +1,37 @@
+{
+  "name": "6000cmd_grpproject-cw2",
+  "version": "1.0.0",
+  "description": "A basic marketplace web application developed for CW2, focusing on secure application design and implementation.",
+  "main": "backend/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frostbrewn/6000CMD_GrpProject-cw2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Frostbrewn/6000CMD_GrpProject-cw2/issues"
+  },
+  "homepage": "https://github.com/Frostbrewn/6000CMD_GrpProject-cw2#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "bootstrap": "^5.3.9",
+    "connect-mongo": "^6.0.0",
+    "csrf-sync": "^4.2.1",
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.4",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
+    "helmet": "^8.3.0",
+    "mongodb": "^7.9.0",
+    "mongoose": "^9.12.1"
+  }
+}
