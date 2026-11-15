@@ -11,6 +11,7 @@ const MongoStore = require('connect-mongo').default;
 const helmet = require('helmet');
 const User = require('./models/User');
 const Listing = require('./models/Listing');
+const adminRoutes = require('./routes/admin');
 
 const {
   csrfSynchronisedProtection,
@@ -129,6 +130,9 @@ async function startServer() {
 
   // Listing endpoints
   app.use('/api', require('./routes/listings'));
+
+  // Admin endpoints
+  app.use('/api/admin', adminRoutes);
 
   // Return safe responses for unknown API routes
   app.use('/api', (req, res) => {
