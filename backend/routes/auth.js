@@ -29,6 +29,7 @@ router.get('/me', async (req, res, next) => {
         if (err) return next(err);
 
         res.clearCookie('securemarket.sid', {
+          path: '/',
           httpOnly: true,
           sameSite: 'lax',
           secure: process.env.NODE_ENV === 'production'
@@ -38,6 +39,28 @@ router.get('/me', async (req, res, next) => {
           error: {
             code: 'UNAUTHENTICATED',
             message: 'Authentication required.'
+          }
+        });
+      });
+    }
+
+    if (req.session.sessionVersion !== user.sessionVersion) {
+      return req.session.destroy(err => {
+        if (err) return next(err);
+
+        res.clearCookie('securemarket.sid', {
+          path: '/',
+          httpOnly: true,
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production'
+        });
+
+        res.set('Cache-Control', 'no-store');
+
+        return res.status(401).json({
+          error: {
+            code: 'UNAUTHENTICATED',
+            message: 'Please log in to continue.'
           }
         });
       });
@@ -150,6 +173,21 @@ router.post('/login', loginLimiter, async (req, res, next) => {
       });
     }
 
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: user._id, status: 'active' },
+      { $inc: { sessionVersion: 1 } },
+      { returnDocument: 'after' }
+    );
+
+    if (!updatedUser) {
+      return res.status(401).json({
+        error: {
+          code: 'INVALID_CREDENTIALS',
+          message: 'Email or password is incorrect.'
+        }
+      });
+    }
+
     // Replace the existing session after successful authentication.
     await new Promise((resolve, reject) => {
       req.session.regenerate((err) => {
@@ -159,6 +197,7 @@ router.post('/login', loginLimiter, async (req, res, next) => {
     });
 
     req.session.userId = user.id;
+    req.session.sessionVersion = updatedUser.sessionVersion;
 
     // Save the new session before responding to the browser.
     await new Promise((resolve, reject) => {
@@ -292,6 +331,37 @@ router.post('/register', registrationLimiter, async (req, res, next) => {
       });
     }
 
+    return next(err);
+  }
+});
+
+router.post('/logout', async (req, res, next) => {
+  try {
+    await new Promise((resolve, reject) => {
+      req.session.destroy((err) => {
+        if (err) {
+          return reject(err);
+        }
+
+        resolve();
+      });
+    });
+
+    res.clearCookie('securemarket.sid', {
+      path: '/',
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production'
+    });
+
+    res.set('Cache-Control', 'no-store');
+
+    return res.status(200).json({
+      data: {
+        message: 'Logged out successfully.'
+      }
+    });
+  } catch (err) {
     return next(err);
   }
 });

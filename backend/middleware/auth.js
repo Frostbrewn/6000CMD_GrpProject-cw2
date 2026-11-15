@@ -37,8 +37,28 @@ function requireAuth(req, res, next) {
         });
       }
 
+      if (req.session.sessionVersion !== user.sessionVersion) {
+        return req.session.destroy(err => {
+          if (err) return next(err);
+
+          res.clearCookie('securemarket.sid', {
+            path: '/',
+            httpOnly: true,
+            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production'
+          });
+
+          return res.status(401).json({
+            error: {
+              code: 'UNAUTHENTICATED',
+              message: 'Please log in to continue.'
+            }
+          });
+        });
+      }
+
       req.user = user;
-      next();
+      return next();
     })
     .catch(next);
 }
